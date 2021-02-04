@@ -29,8 +29,8 @@
           <geom class="window_col" pos="-0.104 -0.013 -0.14" size="0.076 0.012 0.01" type="box" />
           <geom class="window_col" pos="-0.104 -0.018 0" size="0.076 0.001 0.13" type="box" />
           <geom class="window_col" pos="-0.104 -0.022 0" size="0.076 0.003 0.005" type="box" />
-          <site name="handleOpenStart" pos="-0.04 -0.095 0." size="0.005" rgba="1 0 0 1"/>
-          <site name="handleCloseStart" pos="0.01 -0.095 0." size="0.005" rgba="0 1 0 1"/>
+          <site name="handleOpenStart" pos="-0.04 -0.095 0." size="0.005" rgba="1 0 0 0"/>
+          <site name="handleCloseStart" pos="0.01 -0.095 0." size="0.005" rgba="0 1 0 0"/>
       </body>
       <body name="windowb_b" pos="0.1 0.013 0">
           <geom material="window_red" mesh="windowa_h_frame"/>
