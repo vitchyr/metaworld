@@ -133,3 +133,37 @@ class SawyerFaucetOpenEnvV2(SawyerXYZEnv):
         reward = reachRew + pullRew
 
         return [reward, reachDist, pullDist]
+
+    def tmp_relabeling_fn(
+            self,
+            states: dict,
+            actions,
+            next_states: dict,
+            contexts: dict,
+    ):
+        del actions
+        del states
+
+        obs = next_states['state_observation']
+
+        objPos = obs[..., 3:6]
+        fingerCOM = obs[..., 0:3]
+        pullGoal = contexts['state_desired_goal'][..., 3:6]
+        pullDist = np.linalg.norm(objPos - pullGoal, axis=-1)
+        reachDist = np.linalg.norm(objPos - fingerCOM, axis=-1)
+
+        reachCompleted = reachDist < 0.05
+
+        c1 = 1000
+        c2 = 0.01
+        c3 = 0.001
+        reachRew = -reachDist
+        maxPullDist = np.linalg.norm([0.175, 0.125])
+
+        pullRew = reachCompleted * (
+          1000*(maxPullDist - pullDist) + c1*(np.exp(-(pullDist**2)/c2) + np.exp(-(pullDist**2)/c3))
+        )
+        pullRew = np.maximum(pullRew, 0)
+        reward = reachRew + pullRew
+
+        return reward
